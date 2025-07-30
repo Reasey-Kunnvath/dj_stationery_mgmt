@@ -1,18 +1,15 @@
 from login import models
+from login.config import roles
 
-def auth(username, password):
+def auth_adm(username, password):
     try:
         user = models.Users.objects.get(username=username)
-        return user.check_password(password)
+        if user.check_password(password):
+            if user.role_id_id == roles.admin:
+                return True, 'Login successful'
+            else:
+                return False, 'Unauthorized access.'
+        else:
+            return False, 'Invalid username or password'
     except models.Users.DoesNotExist:
-        return False
-    
-def create_admin():
-    user = models.Users(username="ad.admin", email="admin@admin.com", role_id_id=1)
-    user.set_password("12345678")  # Hash the password
-    user.save()
-
-def create_user():
-    user = models.Users(username="ad.user", email="user@user.com", role_id_id=2)
-    user.set_password("12345678")  # Hash the password
-    user.save()
+        return False, 'Invalid username or password'

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from login.common import common
+from login.common.common import auth_adm
+from login.config import roles
 import sweetify
 
 # Create your views here.
@@ -8,13 +9,19 @@ def login_page(request):
 
 def auth_adm_login(request):
     if request.method == 'POST':
-        if common.auth(request.POST['username'], request.POST['password']):
-            return render(request, 'test_page/test_page.html', {'message': 'Login successful'})
+        username = request.POST['username']
+        password = request.POST['password']
+        is_valid, message = auth_adm(username, password)
+
+        if is_valid:
+            return render(request, 'test_page/test_page.html', {'message': message})
         else:
-            sweetify.error(request, 'Login Failed', text='Invalid username or password', persistent='OK')
-            common.create_admin()
-            common.create_user()
+            if 'Unauthorized' in message:
+                sweetify.error(request, 'Access Denied', text=message, persistent='OK')
+            else:
+                sweetify.error(request, 'Login Failed', text=message, persistent='OK')
             return redirect('login_page')
+    return render(request, 'login/login_page.html')
 
 def home_page(request):
     return render(request, 'test_page/test_page.html')
