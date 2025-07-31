@@ -75,29 +75,29 @@ WSGI_APPLICATION = 'stationery_proj.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # mysql database 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stationery_db',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'stationery_db',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 
 #postgresql
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'stationery_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'dan@12345',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'stationery_db',
+        'USER': 'postgres',
+        'PASSWORD': 'dan@12345',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation

@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand
 from login.models import Users, Roles  # Adjust import based on your app name
-from faker import Faker
+# import Faker
 
-fake = Faker()
+# fake = Faker()
 
 class Command(BaseCommand):
     help = 'Seed the database with sample users and roles'
@@ -12,6 +12,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write(f'Seeding users and roles...')
+        # Roles
+        role_admin = Roles( role_name='Admin', role_desc='Admin')
+        role_admin.save()
+
+        role_user = Roles( role_name='User', role_desc='User')
+        role_user.save()
+
 
         # AD Admin
         user = Users(
