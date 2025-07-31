@@ -14,14 +14,11 @@ def auth_adm_login(request):
         is_valid, message = auth_adm(username, password)
 
         if is_valid:
-            return render(request, 'test_page/test_page.html', {'message': message})
+            return redirect('../dashboard')
         else:
             if 'Unauthorized' in message:
                 sweetify.error(request, 'Access Denied', text=message, persistent='OK')
-            else:
+            else: 
                 sweetify.error(request, 'Login Failed', text=message, persistent='OK')
             return redirect('login_page')
     return render(request, 'login/login_page.html')
-
-def home_page(request):
-    return render(request, 'test_page/test_page.html')
